@@ -1,0 +1,59 @@
+\documentclass[a4paper,11pt,english]{article}
+\usepackage{.styles/basic}
+\usepackage{.styles/envs}
+
+%%%%%%% Title %%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{\textbf{Algebraic Geometry} - Exercise Sheet 1}
+\author{Tor Gjone \& Paul}
+
+%%%%%%% Definitions %%%%%%%%%%%%%%%%%%%%%
+\input{defs}
+
+\newSimpleHeaderEnvironment{exercise}{Exercise }
+\newSimpleHeaderEnvironment{solution}{Solution }
+
+% \newColoredBoxEnvironment{exercise}{Exercise }{green!20}
+% \newColoredBoxEnvironment{solution}{Solution }{blue!20}
+
+
+\def\A{\mathbb{A}}
+
+%%%%%%%% Content %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\mmaketitle
+
+% \begin{exercise}[1]
+% \end{exercise} 
+
+\begin{solution}[1] \vspace{-.8cm}
+\begin{enumerate}
+\item Define $f\in k[X_1,...,X_n]$ by $f(x) = \prod_{y \inZ} (x - y)$ for $x
+\in \A^n(k)$. Then 
+\[ V(f) = \{ x \in \A^n(k) \q: f(x) =0 \} = Z. \] Hence $Z$ is
+closed wrt. the Zariski topology.
+\item
+The Zariski closed subsets of $\A^1(k)$ are precisely the finite subsets,
+so the product topology on $\A^1(k) \times \A^1(k)$ is precisely the
+finite subsets. However 
+\[ \{ (x,-x) \q: x\in k \} = \{ (x,y) \q: x+y = 0 \}, \]
+which is not finite (assuming $k$ is not finite), is closed in $\A^2(k)$. 
+\end{enumerate}
+\end{solution} 
+
+
+\begin{solution}[2]
+Let $f \in k[X_1,...,X_{n}]$ be non-constant. Then there exists $x_1 \ne x_2 \in
+\A^n(k)$ such that $f(x) \ne f(y)$. 
+Define $g \in k[X]$, by 
+\[ g(x) = f(x x_1 + (1-x) x_2), \]
+then $g$ is polynomial of one variable that is non-constant, since $g(0) =
+f(x_2) \ne f(x_1) = g(1)$. 
+So since $k$ is algebraically closed there exists $y \in k$ such that $g(y) =
+0$ and thus 
+\[ f(y x_1 - y x_2 + x_2) = 0, \]
+hence $y (x_1 - x_2) + x_2$ is a zero of $f$.
+\end{solution}
+
+
+
+\end{document}
