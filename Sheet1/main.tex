@@ -15,7 +15,6 @@
 % \newColoredBoxEnvironment{exercise}{Exercise }{green!20}
 % \newColoredBoxEnvironment{solution}{Solution }{blue!20}
 
-
 \def\A{\mathbb{A}}
 
 %%%%%%%% Content %%%%%%%%%%%%%%%%%%%%%%%%
@@ -25,9 +24,9 @@
 % \begin{exercise}[1]
 % \end{exercise} 
 
-\begin{solution}[1] \vspace{-.8cm}
+\begin{solution}[1] %\vspace{-.8cm}
 \begin{enumerate}
-\item Define $f\in k[X_1,...,X_n]$ by $f(x) = \prod_{y \inZ} (x - y)$ for $x
+\item Define $f\in k[X_1,...,X_n]$ by $f(x) = \prod_{y \in Z} (x - y)$ for $x
 \in \A^n(k)$. Then 
 \[ V(f) = \{ x \in \A^n(k) \q: f(x) =0 \} = Z. \] Hence $Z$ is
 closed wrt. the Zariski topology.
@@ -40,7 +39,6 @@ which is not finite (assuming $k$ is not finite), is closed in $\A^2(k)$.
 \end{enumerate}
 \end{solution} 
 
-
 \begin{solution}[2]
 Let $f \in k[X_1,...,X_{n}]$ be non-constant. Then there exists $x_1 \ne x_2 \in
 \A^n(k)$ such that $f(x) \ne f(y)$. 
@@ -52,6 +50,39 @@ So since $k$ is algebraically closed there exists $y \in k$ such that $g(y) =
 0$ and thus 
 \[ f(y x_1 - y x_2 + x_2) = 0, \]
 hence $y (x_1 - x_2) + x_2$ is a zero of $f$.
+\end{solution}
+
+\begin{solution}[3]
+\begin{enumerate}
+\item By def
+\item
+Define $g(x_1, ..., x_{n+1}) = f(x_1, ..., x_n)x_{n+1} - 1$, then 
+\begin{equation}
+V(I(X)\cup\{g\}) = \im(D(f)) \subseteq \A^{n+1}(k),
+\label{eq:*}
+\end{equation}
+where $\iota : I(X) \hookrightarrow k[x_1,..., x_{n+1}]$ in the obvious way.
+
+\underline{proof of \pref{eq:*}} 
+So the inclusion $\iota$ gives $V(I(X)) = X \times k \subseteq \A^{n+1}(k)$ ans clearly $g(x_1, ..., x_{n+1}) = 0$ implies $x_{n+1} = f^{-1}(x_1,...,x_n)$. So 
+\begin{align*}
+V(I(X) \cup \{g\}) &= V(I(X)) \cap V(g) \\
+&= \{ (x_1,...,x_n, f^{-1}(x_1,...,x_n)) \in X \q: (x_1,...,x_n) \in X \text{ and } f(x_1, ..., x_n) \ne 0 \}, 
+\end{align*}
+which is clearly equal to $\im(D(f))$.
+
+It remains to show that the coordinate ring of $\im(D(f))$ is given by the localisation $A[f^{-1}]$.
+
+By \pref{eq:*} we have that the coordinate ring is given by 
+\[ C = k[x_1,...,x_{n+1}] / (I(X)\cup \left<g\right>) \cong  A / \left<g\right> \]
+Define $\psi: A[f^{-1}] \to A / \left<g\right>$ by sending $\frac{1}{f}$ to $x_{n+1}$ and $x_i$ to itself. This is well defined since $f x_{n+1} = 1$ in $A / \left<g\right>$ and also clearly a homeomorphism. $\psi$ is also clearly an isomorphism since it is bijective on the generators.
+\end{enumerate}
+
+\end{solution}
+
+
+\begin{solution}[4]
+
 \end{solution}
 
 
