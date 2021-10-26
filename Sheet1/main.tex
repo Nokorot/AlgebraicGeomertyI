@@ -16,6 +16,8 @@
 % \newColoredBoxEnvironment{solution}{Solution }{blue!20}
 
 \def\A{\mathbb{A}}
+\DeclareMathOperator{\rad}{rad}
+\DeclareMathOperator{\tr}{tr}
 
 %%%%%%%% Content %%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
@@ -82,7 +84,38 @@ Define $\psi: A[f^{-1}] \to A / \left<g\right>$ by sending $\frac{1}{f}$ to $x_{
 
 
 \begin{solution}[4]
+We will prove TFAE
+\begin{enumerate}
+\item $A$ is nilpotent (ie. $A^n = 0$)
+\item $A^2 = 0$, ie. $(a,b,c,d) \in V(I)$,
+\item $\det A = 0$ and $\tr A = 0$, ie. $(a,b,c,d) \in V(J)$.
+\end{enumerate}
 
+\begin{enumerate}
+\item[$(3)\implies(2)$]
+By the Cayley-Hamilton theorem
+\[ A^2 - \tr(A) A + \det(A) I_2 = 0. \]
+By assumption $\tr(A) = 0$ and $\det(A) = 0$. So $A = 0$
+\item[$(2)\implies(1)$]
+By definition 
+\item[$(1)\implies(3)$]
+Consider an eigenvalue $\lambda$ of $A$, $A x = \lambda x$. By recursively
+applying $A$ we have $A^n x = \lambda x$.
+By assumtion $A^n = 0$ so $\lambda = 0$. This is true for any eigenvalue. 
+The determinant is the product of the eigenvalues and the trace is the sum of
+them, so $\det(A) = \tr(A) = $.
+\end{enumerate}
+
+
+We have $(a+d) \in J$ and $(a+d)$ has degree one, but all the polynomials in
+$I$ have degree 2, so $(a+d) \not\in I$. Hence $J \ne I$.
+
+By the nullstellensatz; $\rad(I) = I(V(I)) = I(V(J)) = \rad(J)$.
+
+Furthermore we claim $\rad(J) = J$, so $\rad(I) = J$.
+
+We have $J$ radical iff $k[a,b,c,d] / J$ is reduced, which is clear, since
+both $ad-bc$ and $a+d$ are irreducible polynomials.
 \end{solution}
 
 
