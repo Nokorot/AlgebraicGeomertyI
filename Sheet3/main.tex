@@ -15,31 +15,9 @@
 \DeclareMathOperator{\rad}{rad}
 \DeclareMathOperator{\tr}{tr}
 
-\setlength{\parindent}{0cm}
-\setlength{\parskip}{3pt}
-
-\makeatletter
-\newcommand{\colim@}[2]{%
-  \vtop{\m@th\ialign{##\cr
-    \hfil$#1\operator@font lim$\hfil\cr
-    \noalign{\nointerlineskip\kern1.5\ex@}#2\cr
-    \noalign{\nointerlineskip\kern-\ex@}\cr}}%
-}
-\newcommand{\colim}{%
-  \mathop{\mathpalette\colim@{\rightarrowfill@\textstyle}}\nmlimits@
-}
-\newcommand{\invlim@}[2]{%
-  \vtop{\m@th\ialign{##\cr
-    \hfil$#1\operator@font lim$\hfil\cr
-    \noalign{\nointerlineskip\kern1.5\ex@}#2\cr
-    \noalign{\nointerlineskip\kern-\ex@}\cr}}%
-}
-\newcommand{\invlim}{%
-  \mathop{\mathpalette\colim@{\leftarrowfill@\textstyle}}\nmlimits@
-}
-
-
-\makeatother
+\newcommand{\B}{\mathcal{B}}
+\DeclareMathOperator{\Sh}{Sh}
+\DeclareMathOperator{\Id}{Id}
 
 %%%%%%%% Content %%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
@@ -49,22 +27,64 @@
 
 \end{exercise}
 
-\newcommand{\B}{\mathcal{B}}
-
 \begin{exercise}[2]
 We have 
 \begin{align*}
 F &: \Sh (X) \to \Sh_\B(X) ; \quad \F \mapsto \F|_{\B^\op} \\
 G &: \Sh_\B (X) \to \Sh(X) ; \quad \F \mapsto (U \mapsto \invlim_{V \subset U, V
-\in \B} \F(V))
+\in \B} \F(V)).
 \end{align*}
+
+We consider $U' \subset U \subset X$ open subsets. Then for any $V', V \in \B$
+such that $V' \subset V \subset U$, we have the following commutative diagram
+
+\[ \begin{tikzcd}
+\invlim_{W \in U'} \F(W) \arrow[r] \arrow[rd] & \F(V') 
+& \invlim_{W \in U'} \F(W) \arrow[l] \arrow[ld] \\
+& \F(V') &
+\end{tikzcd} \]
+
+
+
 We need to show that there exists natural isomorphisms $\eta : F \circ G \to
 \Id_{\Sh_\B(X)}$ and $\xi : G \circ F \to \Id_{\Sh(X)}$.
 
 We have 
 \[ F \circ G: \Sh_{\B}(X) \to \Sh_{\B}(X); \F \mapsto 
-\left(U \mapsto \invlim_{V \subset U, V \in \B} \F(V) \right)  \]
+\left(U \mapsto \invlim_{V \subset U, V \in \B} \F(V) \right).  \]
 
+Since $U \in \B$ defines a final object in $\B$, $\F(U)$ is an initial in the
+diagram. So $\invlim_{V \subset U, V \in \B} \F(V)$ is isomorphic to $\F(U)$, by
+a unique isomorphism.
+
+Similarly for the other composition, we have 
+\[ G \circ F: \Sh(X) \to \Sh(X); \F \mapsto 
+\left(U \mapsto \invlim_{V \subset U, V \in \B} \F(V) \right),  \]
+but now $U$ is not in general in $\B$. However, $\F(U)$ still satisfy
+the universal property of the inverse limit and is thus the limit up to a unique
+isomorphism (that we will denote $\eta_U$). That is, the following diagram
+commutes:
+\[  \begin{tikzcd}
+\F(U) \arrow[rd] \arrow[r, "\phi"] & \F(V) \arrow[d] \\
+& \F(V') 
+\end{tikzcd} \]
+
+It remains to show that the unique isomorphisms above assemble into natural
+transformations.
+
+Let $U$ and $U'$ are open subsets of $X$, such that $U' \subset U$ and $L$ and $L'$ be limits of the
+diagrams $(\F(V))_{V \subset U, V \in \B}$ and $(\F(V))_{V \subset U', V \in
+\B}$, respectively. 
+
+
+
+By the above arguments there exists unique isomorphisms
+$\eta_U$ and $\eta_{U'}$ from $L$ to $\F(U)$ and from $L'$ to $\F(U')$,
+respectively. We want to show that the following diagram commutes
+
+\[\begin{tikzcd}
+
+\end{tikzcd} \]
 
 
 \end{exercise}

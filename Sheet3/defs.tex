@@ -1,4 +1,29 @@
 
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{3pt}
+
+\makeatletter
+\newcommand{\colim@}[2]{%
+  \vtop{\m@th\ialign{##\cr
+    \hfil$#1\operator@font lim$\hfil\cr
+    \noalign{\nointerlineskip\kern1.5\ex@}#2\cr
+    \noalign{\nointerlineskip\kern-\ex@}\cr}}%
+}
+\newcommand{\colim}{%
+  \mathop{\mathpalette\colim@{\rightarrowfill@\textstyle}}\nmlimits@
+}
+\newcommand{\invlim@}[2]{%
+  \vtop{\m@th\ialign{##\cr
+    \hfil$#1\operator@font lim$\hfil\cr
+    \noalign{\nointerlineskip\kern1.5\ex@}#2\cr
+    \noalign{\nointerlineskip\kern-\ex@}\cr}}%
+}
+\newcommand{\invlim}{%
+  \mathop{\mathpalette\colim@{\leftarrowfill@\textstyle}}\nmlimits@
+}
+
+
+\makeatother
 
 
 \newcommand{\diagSquare}[8]{
