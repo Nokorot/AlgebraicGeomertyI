@@ -3,26 +3,18 @@
 \setlength{\parskip}{3pt}
 
 \makeatletter
-\newcommand{\colim@}[2]{%
+\newcommand{\lim@}[2]{%
   \vtop{\m@th\ialign{##\cr
     \hfil$#1\operator@font lim$\hfil\cr
     \noalign{\nointerlineskip\kern1.5\ex@}#2\cr
     \noalign{\nointerlineskip\kern-\ex@}\cr}}%
 }
 \newcommand{\colim}{%
-  \mathop{\mathpalette\colim@{\rightarrowfill@\textstyle}}\nmlimits@
-}
-\newcommand{\invlim@}[2]{%
-  \vtop{\m@th\ialign{##\cr
-    \hfil$#1\operator@font lim$\hfil\cr
-    \noalign{\nointerlineskip\kern1.5\ex@}#2\cr
-    \noalign{\nointerlineskip\kern-\ex@}\cr}}%
+  \mathop{\mathpalette\varlim@{\rightarrowfill@\scriptscriptstyle}}\nmlimits@
 }
 \newcommand{\invlim}{%
-  \mathop{\mathpalette\colim@{\leftarrowfill@\textstyle}}\nmlimits@
+  \mathop{\mathpalette\varlim@{\leftarrowfill@\scriptscriptstyle}}\nmlimits@
 }
-
-
 \makeatother
 
 
@@ -59,6 +51,7 @@
 \DeclareMathOperator{\Mod}{Mod}
 \DeclareMathOperator{\Ring}{Ring}
 \DeclareMathOperator{\Group}{Group}
+\DeclareMathOperator{\Sets}{Sets}
 
 
 % Homological Algebra
@@ -117,6 +110,7 @@
 
 \newcommand{\pwf}[1]{\begin{cases} #1 \end{cases}}
 \newcommand{\tif}{\text{if}}
+\newcommand{\tand}{\text{and}}
 
 % Shorthand
 \newcommand{\vphi}{\varphi}

@@ -2,6 +2,9 @@
 \usepackage{.styles/basic}
 \usepackage{.styles/envs}
 
+\usepackage{tikz}
+\usepackage{tikz-cd}
+
 %%%%%%% Title %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \title{\textbf{Algebraic Geometry} - Exercise Sheet 3}
 \author{Tor Gjone \& Paul}
@@ -15,79 +18,282 @@
 \DeclareMathOperator{\rad}{rad}
 \DeclareMathOperator{\tr}{tr}
 
-\newcommand{\B}{\mathcal{B}}
 \DeclareMathOperator{\Sh}{Sh}
+\DeclareMathOperator{\op}{^{op}}
 \DeclareMathOperator{\Id}{Id}
+\DeclareMathOperator{\Ouv}{Ouv}
+
+\DeclareMathOperator{\Ann}{Ann}
+\DeclareMathOperator{\Supp}{Supp}
+\DeclareMathOperator{\res}{res}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\G}{\mathcal{G}}
 
 %%%%%%%% Content %%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 \mmaketitle
 
-\begin{exercise}[1]
-
-\end{exercise}
+% \begin{exercise}[1]
+% \end{exercise}
 
 \begin{exercise}[2]
 We have 
 \begin{align*}
-F &: \Sh (X) \to \Sh_\B(X) ; \quad \F \mapsto \F|_{\B^\op} \\
+F &: \Sh (X) \to \Sh_\B(X) ; \quad \F \mapsto \F|_{\B\op} \\
 G &: \Sh_\B (X) \to \Sh(X) ; \quad \F \mapsto (U \mapsto \invlim_{V \subset U, V
 \in \B} \F(V)).
 \end{align*}
 
-We consider $U' \subset U \subset X$ open subsets. Then for any $V', V \in \B$
-such that $V' \subset V \subset U$, we have the following commutative diagram
-
-\[ \begin{tikzcd}
-\invlim_{W \in U'} \F(W) \arrow[r] \arrow[rd] & \F(V') 
-& \invlim_{W \in U'} \F(W) \arrow[l] \arrow[ld] \\
-& \F(V') &
-\end{tikzcd} \]
-
-
-
 We need to show that there exists natural isomorphisms $\eta : F \circ G \to
 \Id_{\Sh_\B(X)}$ and $\xi : G \circ F \to \Id_{\Sh(X)}$.
 
-We have 
-\[ F \circ G: \Sh_{\B}(X) \to \Sh_{\B}(X); \F \mapsto 
-\left(U \mapsto \invlim_{V \subset U, V \in \B} \F(V) \right).  \]
+For convenience we will write $\B_U = \{ V \in \B \q| V \subset U  \}$, then we have 
+\begin{equation*}
+F \circ G: \Sh_{\B}(X) \to \Sh_{\B}(X); \F \mapsto 
+\left(U \mapsto \invlim_{V \in \B_U} \F(V) \right).  
+\end{equation*}
 
-Since $U \in \B$ defines a final object in $\B$, $\F(U)$ is an initial in the
-diagram. So $\invlim_{V \subset U, V \in \B} \F(V)$ is isomorphic to $\F(U)$, by
-a unique isomorphism.
+Since $U \in \B$, in particular $U \in \B_U$, so $U$ defines a final object in
+$\B_U$, therefore $\F(U)$ defines an initial in the diagram. So 
+$\F(U)$ is the inverse limit up to unique isomorphism.
 
-Similarly for the other composition, we have 
-\[ G \circ F: \Sh(X) \to \Sh(X); \F \mapsto 
-\left(U \mapsto \invlim_{V \subset U, V \in \B} \F(V) \right),  \]
-but now $U$ is not in general in $\B$. However, $\F(U)$ still satisfy
-the universal property of the inverse limit and is thus the limit up to a unique
-isomorphism (that we will denote $\eta_U$). That is, the following diagram
-commutes:
-\[  \begin{tikzcd}
-\F(U) \arrow[rd] \arrow[r, "\phi"] & \F(V) \arrow[d] \\
-& \F(V') 
-\end{tikzcd} \]
+For the other composition, we have 
+\begin{equation*}
+ G \circ F: \Sh(X) \to \Sh(X); \F \mapsto 
+\left(U \mapsto \invlim_{V \in \B_U} \F(V) \right), 
+\end{equation*}
+but now $U$ is not in general in $\B$. However, $\B_U$ defines a cover of $U$ by
+open sets, so since $\F$ is a sheaf $\F(U)$ satisfy the universal property of
+the following equalizer
+\begin{equation}
+\begin{tikzcd}
+\F(U) \arrow[r] & \prod_{V \subset U, V \in \B} \F(V) 
+\arrow[r, shift left, "\res^{V_1}_{V_1\cap V_2}"] 
+\arrow[r, shift right, "\res^{V_1}_{V_1\cap V_2}"'] 
+& \prod_{V_1, V_2 \subset U} \F(V) 
+\end{tikzcd}
+\end{equation}
+We claim that this universal property implies that $\F(U)$ satisfy the universal
+property of the inverse limit (in fact the two universal properties are the
+equivalent, but we don't need this fact) and thus $\F(U)$ is the inverse limit
+up to unique isomorphism.
 
-It remains to show that the unique isomorphisms above assemble into natural
-transformations.
+To prove the claim consider $V, V' \in \B$ such that $V' \subset V \subset U$.
+Then equaliser diagram implies that the following diagram commutes
+\begin{equation*}
+\begin{tikzcd}
+\F(U) \arrow[r] \arrow[rd] & \F(V) \arrow[d, "\res^V_{V\cap V'}"] \\
+& \F(V')
+\end{tikzcd}
+\end{equation*}
+So $\F(U)$ is a cone. Suppose $K$ is another cone of the diagram. Then in
+particular the diagram 
+\begin{equation*}
+\begin{tikzcd}
+K \arrow[r] \arrow[d] & \F(V_1) \arrow[d, "\res^{V_1}_{V_1\cap V_2}"] \\
+\F(V_2) \arrow[r, "\res^{V_1}_{V_1\cap V_2}"] & F(V_1 \cap V_2) 
+\end{tikzcd}
+\end{equation*}
+commutes, where $V_1, V_2 \in \B_U$. So $K$ is an equalizer and thus factors
+through $\F(U)$ by a unique map. 
 
-Let $U$ and $U'$ are open subsets of $X$, such that $U' \subset U$ and $L$ and $L'$ be limits of the
-diagrams $(\F(V))_{V \subset U, V \in \B}$ and $(\F(V))_{V \subset U', V \in
-\B}$, respectively. 
+These unique isomorphisms is the maps that will define the isomorphisms of sheaves
+(ie. natural isomorphism) that will again define the natural isomorphisms
+from the compositors $F\circ G$ and $G \circ F$ to the respective identities.
+It remains to show the neutrality requirements these unique isomorphisms are
+assemble into morphisms of sheaves that again assemble into natural
+transformations. We will fist consider the composition $G \circ F$. 
+
+%and then at the end observe that the other arguments in the case of $F \circ G$ follow.
+
+Consider a pair $U' \subset U \subset X$ of open sets, and denote the
+inclusion by $\iota : U' \hookrightarrow U$ and fix a sheaf $\F$. Then 
+$\iota^* := (G \circ F)(\F)(\iota)$ is defined by the universal property of the
+inverse limit.
+
+Let $V',V \in \B_{U'}$, then the following diagram commutes:
+\begin{equation}
+\label{dg:1}
+\begin{tikzcd}
+\invlim\limits_{W \in \B_U} \F(W) \arrow[r] \arrow[rd] 
+\arrow[rr, bend left=20, dotted, "\iota^*"]
+& \F(V) \arrow[d] 
+& \invlim\limits_{W \in \B_U'} \F(W) \arrow[l] \arrow[ld] \\
+& \F(V')
+\end{tikzcd} 
+\end{equation}
+% Here the right triangle is the defining diagram for of the limit over $\B_{U'}$
+% and the left triangle it the defining diagram for the limit over $\B_U$. 
+Since $\B_{U'} \subset \B_U$, the left triangle holds for all $V,V' \in \B_{U'}$, so 
+the limit over $\B_U$ is a cone over the diagram indexed by $\B_{U'}$.
+So by the universal property of the limit over $\B_{U'}$, 
+there is a unique map a $\iota^*$, such that the diagram commutes, for all $V,
+V' \in \B_{U'}$.
+
+Now that we have this map, we want to show that the diagram
+\begin{equation}
+\label{dg:2}
+\begin{tikzcd}
+\invlim\limits_{W \in \B_U} \F(W) \arrow[r, "\iota^*"] \arrow[d, "\cong"]
+& \invlim\limits_{W \in \B_U'} \F(W) \arrow[d, "\cong"] \\
+\F(U) \arrow[r, "\F(\iota)"] & \F(U')
+\end{tikzcd}
+\end{equation}
+commutes, which shows that the unique isomorphism define a morphism of sheaves. 
+We will denote the isomorphism on the left by $\psi$, the one on the right by
+$\phi$, the restriction maps from $\invlim_{W \in \B_U} \F(W) \to \F(W)$ by
+$\rho_W$ and from $\invlim_{W \in \B_U'} \F(W) \to \F(W)$ by $\rho'_W$. Then by
+the defining properties of $\psi$ and $\phi$, 
+\begin{equation}
+\label{eq:1}
+\rho_W \circ \psi^{-1} = \res^U_W \qq\tand \rho'_W \circ \phi^{-1} =
+\res^{U'}_W. 
+\end{equation}
+So since $\F$ is a sheaf $\rho'_W \circ \phi^{-1} \circ \F(\iota) = \rho_W \circ
+\psi^{-1}$ (it follows from the equalizer condition for the cover
+$\{ U, U' \}$ of $U$.) This implies that diagram \pref{dg:2} commutes, by
+considering the diagram combined with diagram \pref{dg:1}.
 
 
 
-By the above arguments there exists unique isomorphisms
-$\eta_U$ and $\eta_{U'}$ from $L$ to $\F(U)$ and from $L'$ to $\F(U')$,
-respectively. We want to show that the following diagram commutes
+\newcommand{\ha}{\hat{\alpha}}
 
-\[\begin{tikzcd}
+Let $\F, \G : \Ouv(X)\op \to \Sets$ be sheaves and $\alpha: \F \to \G$ a
+morphism of sheaves. Then like above $\ha = (G \circ F)(\alpha)$ is defined by
+the universal property of the inverse limit.
+Let $U\subset X$ open, then for all $V' \subset V$, the diagram
+\begin{equation}
+\begin{tikzcd}
+\label{eq:5}
+\invlim\limits_{V \in \B_U} \F(V) \arrow[r] \arrow[rrr, bend left=20, dotted, "\ha_U"]
+\arrow[rd]
+& \F(V) \arrow[r, "\alpha_V"] \arrow[d]
+& \G(V) \arrow[d]
+& \invlim\limits_{V \in \B_U} \G(V) \arrow[l] \arrow[ld] \\
+& \F(V') \arrow[r, "\alpha_{V'}"]
+& \G(V')
+\end{tikzcd} 
+\end{equation}
+without $\ha_U$ commutes. So $\invlim_{V \subset U} \F(V)$ is a cone over $\G(V)$ indexed by
+$\B_U$ and $\ha_U$ is the unique map such that the diagram commutes. 
+To show that $\ha_U$ assemble into a morphism of sheaves we need the outer
+square in the following diagram to commute
 
-\end{tikzcd} \]
+\renewcommand{\L}[2]{\invlim\limits_{V \in \B_{#2}} #1(V)}
 
+\begin{equation*}
+\begin{tikzcd}
+ \L{\F}{U} \arrow[rrr, "\ha_U"] \arrow[dd, "\iota^*"] \arrow[rd] &&& 
+ \L{\G}{U} \arrow[dd, "\iota^*"] \arrow[ld]  \\
+ & \F(V) \arrow[r, "\alpha_V"] & \G(V) \\
+ \L{\F}{U'} \arrow[rrr, "\ha_{U'}"] \arrow[ru] &&& 
+\L{\G}{U'} \arrow[lu]
+\end{tikzcd} 
+\end{equation*}
 
+We obeserve that the left and right triangles comutes by the definition of
+$\iota^*$ and that the top and bottum inner squares cummutes by the defention of
+$\ha$. So in particular, all paths from $\invlim_{V \in \B_U} \F(V)$ to
+$\G(V)$ agree and thus the outer square most commute by the universal propery of
+the limit at the bottum right.
+
+%U \subset X$ be open. 
+
+The only thing that remains to show now is that the following diagram commutes
+
+\begin{equation*}
+\begin{tikzcd}
+\L{\F}{U} \arrow[r,"\ha_U"] \arrow[d, "\psi"] & \L{G}{U} \arrow[d, "\phi"]\\
+\F(U) \arrow[r, "\alpha_U"] & \G(U)
+\end{tikzcd}
+\end{equation*}
+
+Similarly to how we showed diagram \pref{dg:2}, by combining the diagram with
+diagram \pref{dg:5} and use equation \pref{eq:1}, we get that 
+$\tau_V \circ \phi^{-1} \circ \alpha_U$ where $\tau_V$ is the restiction of the
+limit onto $\G(V)$ is the same as $\alpha_V \circ \rho_V \circ \psi^{-1}$. Since
+$\alpha_V \circ \rho_V$, for $V\in \B_U$, are the maps of the cone in diagram
+$\pref{dg:5}$,
+\[ \alpha_V \circ \rho_V = \tau_V \circ \ha_U. \]
+So 
+\[ \tau_V \circ \phi^{-1} \circ \alpha_U = \tau_V\circ \ha_U  \circ \psi^{-1}. \]
+Finaly, since this holds for all $V \in \B_U$, the univeral propery of the
+inverse limit implies that we can cancele the $\tau_V$ ans thus the diaram
+comutes.
 \end{exercise}
+
+\newcommand{\tM}{\tilde{M}}
+\newcommand{\tm}{\tilde{m}}
+
+\newpage
+\begin{exercise}[3]
+\begin{enumerate}
+\item % 1
+To show that $\Supp(s)$ closed, we will prove that $U \setminus \Supp(s)$ is
+open. Suppose $x \notin \Supp(s)$, that is $s_x = 0$ or eqvivalently there 
+exists $x \in V \subset U$ open such that $s|_V = 0$. But then $s_y = 0$ for all
+$y\in V$. Hence $V \cap \Supp(s) = \emptyset$, which proves that $U \setminus
+\Supp(s)$ is open and thus $\Supp(s)$ is closed in $U$.
+
+
+\item %2
+For $f\in A$, $\tM := M \otimes_A A[f^{-1}] \cong M[f^{-1}]$. 
+
+We have 
+\begin{align*}
+\Supp(\tm) &:= \{ x \in X \q| \tm_x \ne 0 \}  \\
+V(\Ann_A(m)) &:= \{ x \in X \q| \forall f \in \Ann_A(m) \q, f(x) = 0  \} 
+\end{align*}
+
+Like in part 1. we will consider the complement of the sets and show that they
+are the same. We have
+\begin{align*}
+% X\setminus \Supp(\tm) &:= \{ x \in X \q| \tm_x \ne 0 \}  \\
+% X\setminus V(\Ann_A(m)) &:= \{ x \in X \q| \forall f \in \Ann_A(m) \q, f(x) = 0  \} 
+x \notin \Supp(\tm) &\q\lra \exists f \in A \q: x \in D(f) \q\land (\tm, D(f)) = 0 \\
+x \notin V(\Ann_A(m)) &\q\lra \exists f \in \Ann_A(m)\q: f(x) \ne 0 \\
+\end{align*}
+
+Suppose $x \notin \Supp(\tm)$ and let $f \in \Ann_A(m)$ such that $f(x) \ne 0$.
+Then $f m = 0$ and $x \in D(f)$, so $(\tm, D(f)) = 0$ and thus $x \notin
+\Supp(\tm)$.
+
+Conversly suppose $x \notin \Supp(\tm)$ and let $f \in A$ such that $x \in
+D(f)$ and $(\tm, D(f)) = 0$. Then $f^n m = 0$ for some $n \in \N$, so $f^n \in
+\Ann_A(m)$. Since $x \in D(f)$, $f(x) \ne 0$ so $f \not\subseteq x$. Therefore 
+$f^n \notin x$, since $x$ is a prime ideal, and thus $f^n(x) \ne 0$. So $g = f^n
+\in \Ann_A(m)$ and $x \in D(g)$. Hence $x \notin V(\Ann_A(m))$.
+
+Now suppose $M = \left<m_1, ..., m_n\right>$. 
+Suppose $x \notin V(\Ann_A(M))$, that is there exists $f \in \Ann_A(M)$ such
+that $f(x) \ne 0$. So $fm = 0$ for all $m \in M$ and thus,
+by the argument above, $(\tm, D(f)) = 0$ and $x\in D(f)$. Hence $\tM_x = 0$ and
+thus $x \notin \Supp(\tM)$.
+
+Conversly suppose $x \notin \Supp(\tM)$, that is $\tM_x = 0$. So there exits $f
+\in A$ such that $x \in D(f)$ and for all $\tm \in M[f^{-1}]$ $(\tm, D(f)) =
+0$. In particular $(\tm_i, D(f)) = 0$, so by the argument above there exists
+$f_i \in A$ such that $f_i m_i = 0$ and $f_i(x) \ne 0$. 
+Let $g = \prod_i f_i$ and consider $m \in M$, then $m = \sum_i a_i m_i$, so
+$gm = \sum_i a_i \prod_j f_j m_i = 0$ and ths $g \in \Ann_A(M)$. 
+Furthermore $f_i \notin x$, so since $x$ is prime, $g \notin x$. Hence 
+$x \notin \Supp(\tM)$.
+
+\item %3
+Let $A = \Z$ and $M = \bigoplus_{p \text{ prime}} \Z_p$. Consider $p \in \N$ be prime
+and $n \in \Z$ such that $p \in D(n) = \{ q\in X \q| q \nmid n \}$ (ie. $p \nmid
+n$). Let $m = (m_i)_{i \text{ prime}}$ and $m_i = 1$, then $nm \ne 0$, since
+$n m_p = 0$ would imply $p \mid n$. So $p \in \Supp(\tM)$. 
+
+On the other hand $0 \notin \Supp(\tM)$. Since if $0 \in D(n)$, then $n \in
+\left<0\right>$, so $n = 0$ and thus $nm = 0$ for all $m\in M$.
+
+So $\Supp(\tM) = X \setminus \{0\}$. But $\{0\}$ is not closed in $X$, since the
+only closed set contiaining $0$ is $X$.
+\end{enumerate}
+\end{exercise}
+
 
 
 \end{document}
