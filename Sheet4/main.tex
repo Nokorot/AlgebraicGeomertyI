@@ -1,0 +1,192 @@
+\documentclass[a4paper,11pt,english]{article}
+\usepackage{.styles/basic}
+\usepackage{.styles/envs}
+
+%%%%%%% Title %%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{\textbf{Algebraic Geometry} - Exercise Sheet 4}
+\author{Tor Gjone \& Paul}
+
+%%%%%%% Definitions %%%%%%%%%%%%%%%%%%%%%
+\input{defs}
+
+\newSimpleHeaderEnvironment{exercise}{Exercise }
+
+\DeclareMathOperator{\OC}{OC}
+\DeclareMathOperator{\Idem}{Idem}
+
+%%%%%%%% Content %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\mmaketitle
+
+\renewcommand{\O}{\mathcal{O}}
+
+\begin{exercise}[2]
+\begin{enumerate}
+\item
+$\{ V \subset U \} \cap \{ V \subset X \sm U \}$ defines a cover of $X$, so by 
+the definition of a sheaf there exists a unique $e_U \in \Gamma(X,\O_X)$ such
+that 
+\[ e_U |_V = 1 \:\tif\: V \subset U \q{\tand} e_U|_V = 0 \:\tif\: V \subset X
+\sm U. \]
+Note that $U$ is open and $X\sm U$ is open, so $e_U = 1$ and $e_U|_{X\sm U} =
+0$. 
+
+If $V \se U$ then, by the functorialety of the restriction map $(e_U e_U) |_V =
+1 \cdot 1 = 1$ and similarly of $V \se X \sm U$, $(e_U e_U)|_V = 0$.
+So by the uniqueness, from above, $e_U e_U = e_U$ and thus $e_U$ is idempotent.
+
+If $V \subset X$ is another clopen set. ie. 
+\[ V \cap (X\sm U) \es \q\lor U \cap (X \sm V) \ne \es. \]
+By symmetry we may wlog. assume 
+\[ W = V \cap (X \sm U) \ne \es. \]
+
+Since $V$ and $U$ are both clopen, $W$ most also be clopen and we have 
+$W \se V$ and $W \se X\sm U$. So $e_V|_W = 1$  but $e_U|_W = 0$. So 
+\[ \Psi : \OC(X) \to \Idem(\Gamma(X,\O_X));\: U \mapsto e_U \]
+is an injection.
+
+Let $e \in \Idem(\Gamma(X,\O))$. Then for $x\in X$, $e_x=1$ or $e_x=0$, since 
+$e_x$ is idempotent in $(\O_X)_x$ ( $e_x = (e\cdot e)_x = e_x \cdot e_x$.)
+
+Since $(\O_X)_x$ is a local ring $e_x$ is a unit or $1-e_x$ is a unit.
+We have 
+\begin{align}
+ae_x = 1 \q\ra ae_x e_x = e_x \q\ra e_x = ae_x = 1, \\
+%
+a (1 - e_x) = 1 \q\ra a(e_x - e_x^2) = e_x \q\ra e_x = a(0) = 0.
+\end{align}
+So $e_x = 1$ or $e_x = 0$. 
+
+Let $U = \{ x \in X \q| e_x = 1\}$. The we want to show that $U$ is clopen. 
+Let $x\in U$, then by the definition of the stalk, there exists $V \se X$ such
+that $x \in V$ and $e|_V = 0$. So $V$ is a neighbourhood of $x$ in $U$ and thus
+$U$ is open. Similarly let $x \in X\sm U$, then $e_x = 1$, so there exists a
+neighbourhood $V \se X$ of $x$ such $e|_V = 1$. So $V \subset X\sm U$. Hence $U$
+is closed and thus clopen. 
+Clearly $e = e_U$.
+
+\item 
+If $V \se U \cap U'$, $(e_U e_{U'})|_V = 1$, by functorialety of the restiction,
+like above. 
+If $V \se X \sm (U \cap U') = (X \sm U) \cup (X \sm U')$, 
+let $V_1 = (X \sm U) \cap V$ and $V_2 = (X \sm U') \cap V$. Then, 
+$e_U|_{V_1} = e_{U'}|_{V_2} = 0$, so for $i=1,2$,
+\[ (e_U e_{U'})|_{V_i} = e_U|_{V_i} e_{U'}|_{V_i} = 0. \]
+Since $\{ V_1, V_2 \}$ defines a cover of $V$, we can conclude that $(e_U
+e_{U'})|_V = 0$. Hence $e_U e_{U'} = e_{U\cap U'}$, by the uniqueness from part
+one.
+
+\item 
+If $X$ is connected there are no proper non-empty clopen subsets of $X$, so by
+part one there are no idempotents $e\ne 0,1$. 
+
+Conversely if $X$ is not connected, there exists a proper, non-empty, clopen
+$U \se X$ and $e_U \ne 0,1$ defines an idempotent.
+
+Suppose $\Gamma(X, \O_X) \cong R_1 \times R_2$ (where $R_1$ and $R_2$ are
+non-zero rings), then $(1,0) \in \R_1 \times R_2$ defines an idempotent $\ne
+0,1$.
+
+Conversely if $e \ne 0,1$ is an idempotent in $R = \Gamma(X,\O_X)$, then 
+$Re$ and $R(1-e)$ defines two non zero ring such that $R \cong Re \times
+R(1-e)$. Since $e$ is non-zero $e \in Re$ is non-zero. Similarly since $e \ne
+1$, $(1-e) \in R(1-e)$ is non-zero.
+
+Since $Re$ is an ideal, it is enough to show that there is a unit element to
+show that $Re$ is a ring. $e \in Re$ is a unit element, since for all $a \in R$ 
+$(ae)e = ae$. So $Re$ is a ring. The same argument works for $R(1-e)$, since
+$(1-e)(1-e) = 1 - e - e + e = 1-e$ and thus $(1-e)$ is an idempotent.
+
+To show that $R \cong Re \times R(1-e)$. We define $\psi: R \to Re \times
+R(1-e)$ by $r \mapsto (re, r(1-e))$ and $\phi: Re \times R(1-e)\to R$ by 
+$(a,b) \mapsto a+b$. Clearly this defines ring homomorphisms, and in fact they
+defines mutual inverses.
+
+Let $r \in R$, then $(\phi \circ \psi)(r) = re + r(1-e) = r$. Conversely let
+$(ae,b(1-e)) \in Re\times R(1-e)$, then 
+\begin{align*}
+(\psi \circ \phi)(ae,a(1-e)) &= \left((ae + b(1-e))e, (ae+b(1-e)) (1-e)\right)
+\\
+&= \left( ae + b(e-e), a(e-e) + b(1-e) \right ) \\
+&= \left(ae,b(1-e)\right) 
+\end{align*}
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}[3]
+\begin{enumerate}
+\item 
+Let $p \in Z$ and $(a,V) \in \F_p$, that is $V \se Z$ open and $a \in \F(V)$. 
+By the definition of subspace topology there exists $\til V\se X$, such that 
+$V = \til V|_Z = i\i(\til V)$. So $a \in \F(V) = \F(i\i(\til V))$ and thus
+$(a, \til V) \in (i_*\F)_p$. 
+
+Conversely, let $(a,V) \in (i_*\F)_p$, then $a \in \F(i\i(V))$. So
+$(a,i\i(V)) \in \F_p$. This construction is clearly mutually inverse.
+
+If $p \ne Z$, then $X\sm U$ is a neighbourhood of $p$ and $\F(i\i(X \sm U)) =
+\F(\es) = 0$. So $(i_*\F)_p = 0$.
+
+\item 
+Since the sheafification does not change the stalks, the stalk $(j_!\F)_p$ is
+given by pairs $(a,V)$, for $p \in V \se U$ and $a \in \F(V)$, and $(0, V)$, for
+$V \not\se U$. Also, since $U$ is open, $V \se U$ is open in $U$ iff $V$ is open
+in $X$.
+
+Hence clearly $(j_!\F)_p = p$ if $p \in U$ and $(j_!\F)_p = 0$ if $p \ne U$.
+
+\item 
+I suffices to show the exact sequence on stalks.
+
+Consider $p \in U$, then 
+\begin{align*}
+(j_!(j\i\F))_p &= (j\i\F)_p, && \text{by part 2} \\
+&= (j^+\F)_p, && \text{since the stalk is preserved by sheafification} \\
+&= \F_p, &&\text{since } j \text{ is an open embedding. And}  \\
+%
+(i_*(i\i\F))_p &= 0, && \text{by part 1.}
+\end{align*}
+If $p \in Z$, then
+\begin{align*}
+(j_!(j\i\F))_p &= 0, && \text{by part 2, and} \\
+(i_*(i\i\F))_p &= (i\i\F)_p, && \text{by part 1.} \\
+&= (i^+\F)_p, \\
+&= \colim_{p \in V \in \O_X} \F(V) && \text{colimit of colimit and since }
+j(p) = p, \\
+&= \F_p && \text{by definition of stalk.}
+\end{align*}
+
+So on the stalks, the sequence has the form 
+\[ \begin{tikzcd}[row sep=.5em]
+0 \arrow[r]& \F_p \arrow[r]& \F_p \arrow[r]& 0 \arrow[r]& 0 \\
+0 \arrow[r]& 0 \arrow[r]& \F_p \arrow[r]& \F_p \arrow[r]& 0
+\end{tikzcd} \]
+where in the first line $p \in U$ and in the second $p \in Z$.
+
+Since the maps are defined by the inclusions it is clear that these sequences are
+exact. ie. the map $\F_p \to \F_p$, is an isomorphism.
+
+\item % 4
+This question does not make sense.
+
+We have
+\begin{align*}
+(j_*(j\i\F))_0 &= (j\i\F)_0 && \text{by part 1} \\
+&= \colim_{0 \in V \in \O_\C} \F(V) = \F_0
+\end{align*}
+But $(j_*(j\i\F))_x = 0$, for any point $x \ne 0$. So any map 
+$\F \to j_*(j\i\F)$ cannot be injective.
+
+
+On the other hand $(j_!(j\i\F))_0 = 0$, by part 2, and the map 
+$j_!(j\i\F) \to \F$, for part 3, is injective, but cannot be surjective,
+since $\F_x \ne 0$.
+
+
+\end{enumerate}
+
+\end{exercise}
+
+
+
+\end{document}
