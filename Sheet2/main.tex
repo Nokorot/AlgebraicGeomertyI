@@ -1,0 +1,182 @@
+\documentclass[a4paper,11pt,english]{article}
+\usepackage{.styles/basic}
+\usepackage{.styles/envs}
+
+%%%%%%% Title %%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{\textbf{Algebraic Geometry} - Exercise Sheet 2}
+\author{Tor Gjone \& Paul}
+
+%%%%%%% Definitions %%%%%%%%%%%%%%%%%%%%%
+\input{defs}
+
+\newSimpleHeaderEnvironment{exercise}{Exercise }
+
+\def\A{\mathbb{A}}
+\DeclareMathOperator{\rad}{rad}
+\DeclareMathOperator{\tr}{tr}
+
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{3pt}
+
+\makeatletter
+\newcommand{\colim@}[2]{%
+  \vtop{\m@th\ialign{##\cr
+    \hfil$#1\operator@font lim$\hfil\cr
+    \noalign{\nointerlineskip\kern1.5\ex@}#2\cr
+    \noalign{\nointerlineskip\kern-\ex@}\cr}}%
+}
+\newcommand{\colim}{%
+  \mathop{\mathpalette\colim@{\rightarrowfill@\textstyle}}\nmlimits@
+}
+\newcommand{\invlim@}[2]{%
+  \vtop{\m@th\ialign{##\cr
+    \hfil$#1\operator@font lim$\hfil\cr
+    \noalign{\nointerlineskip\kern1.5\ex@}#2\cr
+    \noalign{\nointerlineskip\kern-\ex@}\cr}}%
+}
+\newcommand{\invlim}{%
+  \mathop{\mathpalette\colim@{\leftarrowfill@\textstyle}}\nmlimits@
+}
+
+
+\makeatother
+
+%%%%%%%% Content %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\mmaketitle
+
+\begin{exercise}[2]
+\begin{enumerate}
+\item
+% This is quite clear. 
+Suppose $(U_i)_{i\in \N}$ is some ascending chain of open sets.
+Then $(U_i)_{i\in \N}$ defines a cover of the open set $U = \cup_{i\in \N} U_i$,
+which is also open and thus quasi-compact. So there is some $i_0 \in \N$ such
+that $U_{i_0} = U$ and thus $U_i = U_{i_0}$ for all $i\ge i_0$.
+
+Conversely, if $X$ is noetherian and $(U_j)_{j\in J}$ is a cover of $U$. 
+
+Let $I \subset \P(J)$, be the set consisting of finite number of elements in
+$J$ and define $V_i = \cup_{j \in i} U_j$. Then $I$ we define a partial order on
+$I$ by $i_1 \le i_2$ if and only if $V_{i_1} \subset V_{i_2}$ 
+( Note: that $I$ also inherits a partial order from $\P(J)$, and convivially 
+$i_1 \subset i_2$ does imply $i_1 \le i_2$, but the converse is not true in
+general.)
+Observe that since $X$ is assumed to be noetherian, $I$ satisfy the ascending
+chain condition, since an ascending chain in $I$ defines, in particular an
+ascending chain of open sets $X$ (and the partial orders agree, by construction.) 
+
+So, by Zorn's lemma, there exist a maximal element $i_0 \in I$, that is a finite
+subset of $J$. Since $i_0$ is maximal, in fact, $U_j \subset V_{i_0}$ for all
+$j\in J$. Suppose, for contradiction, that some $U_j$ is not contained in
+$V_{i_0}$, then $V_{i_0} \subsetneq V_{i_0 \cup {j}}$, a contradiction. So
+$U = \cup_{j \in J} \subset V_{i_0} = \cup_{j \in i_0} U_j$.
+
+\item
+
+\item
+In a noetherian ring, every ideal is finitely generated and every open subset 
+in $\Spec(A)$ is of the form $\Spec(A)\setminus V(I)$ for some ideal. So every 
+open subset of $\Spec(A)$ is quasi-compact.
+
+\item
+Consider $A = \Z$, with a trivial product, that is $a b = 0$ for all $a,b \in A$.
+Then every subset of $A$ defines an ideal and every ideal is a subset of the
+nilradical. So $\Spec(A) = \Spec(\{0\}) = \{0\}$. There is only one possible
+topology on one point and this topology is quasi-compact. Bu $A$ is clearly not
+noetherian, since the ascending chain of ideals defined by
+$(\{0,1,...,n\})_{n\in \N}$ is infinite and strictly increasing.
+\end{enumerate}
+\end{exercise} 
+
+\begin{exercise}[4]
+Let $\iota^A_{i,j}$ denote the map $A_i \to A_j$. We have 
+\[ \colim_{I} A_i = \sqcup_{i\in I} / \sim, \]
+where $(a,i) \sim (b,j)$ iff $\iota^A_{i,k} (a) = \iota^A_{j,k}(b)$ for some 
+$k \ge i,j$.
+
+We will by $\alpha$ denote the map from $\colim_I A_i$ to $\colim_I B_i$, defined
+by the universal property of the colimit and the maps $\alpha_i$. That is 
+$\alpha$ is the unique map map defined by the colimit such that 
+$\alpha \circ \itoa^A_i = \itoa^B_i \circ \alpha_i$, where $\itoa^A_i$ is the
+unique map defined by the colimit such that $\iota^A_i = \itoa^A_j \circ
+\iota^A_{i,j}$ for all $j \ge i$. 
+Similarly $\beta$ denotes the map from $\colim_I B_i$ to $\colim_I C_i$.
+
+There are four parts to showing that the sequence of colimits is exact. 
+\begin{enumerate}
+\item $\alpha$ is injective:
+
+Suppose $\alpha(a, i) = \alpha(b,j) = (c,l)_B$ for some $a \in A_i$, $b \in A_j$
+and $c \in B_l$. Let $k \ge i,j,l$. We have
+
+\begin{align*}
+\alpha(a,i) &= (\alpha \circ \itoa^A_i)(a) \\
+&= (\alpha \circ \iota^A_k \circ \itoa^A_{i,k}) (a) \\
+&= (\iota^B_k \circ \alpha_k \circ \itoa^A_{i,k}) (a),
+\quad \text{and similarly} \\
+\alpha(b,j) 
+&= (\iota^B_k \circ \alpha_k \circ \itoa^A_{j,k}) (b).
+\end{align*}
+So $\alpha_k \circ \itoa^A_{i,k} (a) \sim \alpha_k \circ \itoa^A_{j,k} (b)$.
+That is
+\[ \iota^B_\{ k, m \} \circ \alpha_k \circ \itoa^A_{i,k} (a) 
+= \iota^B_\{ k, m \} \circ \alpha_k \circ \itoa^A_{j,k} (b), \]
+for some $m \ge k$. Rearranging one more time
+\[ \iota^B_\{ k, m \} \circ \alpha_k \circ \itoa^A_{i,k} 
+= \alpha_m \circ \iota^B_\{ k, m \} \circ  \itoa^A_{i,k}
+= \alpha_m \circ \iota^b_\{ i, m \} \]
+So since $\alpha_m$ is injective, we have $\iota^b_\{ i, m \}(a) = \iota^b_\{ j,
+m \}(b)$. Hence $(a,i) \sim (b,j)$.
+
+\[ \alpha_m \circ \iota^B_\{ k, m \} \circ \itoa^A_{i,k} (a) 
+= \iota^B_\{ k, m \} \circ \alpha_k \circ \itoa^A_{j,k} (b), \]
+
+\item $\beta$ is surjective:
+
+Let $(c,i) \in \colim_I C_i$, then, since $\beta_i$ is surjective,
+there exists $b\in B_i$ such that $\beta_i(b) = c$. So 
+\[ \beta(b,i) = (\bata \circ \iota^B_i)(b) = (\iota^C_i \circ \beta_i)(b) 
+=  \iota^C_i (c) = (c,i). \]
+
+\item $\alpha \circ \beta = 0$:
+
+Let $(a,i) \in \colim_I A_i$, then 
+\begin{align*}
+(\beta \circ \alpha)(a,i) &= (\beta \circ \alpha \circ \iota^A_i) (a) \\
+&= (\beta \circ \iota^B_i \circ \alpha_i)(a) \\
+&= (\iota^C_i \circ \beta_i \circ \alpha_i)(a) = 0.
+\end{align*}
+
+\item $\ker \beta \subset \im \alpha$:
+
+Suppose $(b,i) \in \ker(\beta)$, then
+\begin{align*}
+0 = \beta(b,i) = (\beta \circ \iota^B_i)(b) = (\iota^C_i \circ \beta_i),
+\end{align*}
+that is $(\beta_i(b),i) \sim (0,j)$ for some $j\in I$. Let $k \ge i,j$ such that 
+$\itoa^C_{i,k}(\beta_i(b)) = \iota^C_{j,k}(0) = 0$ (where the last equality
+comes from $\iota^C_{j,k}$ being an homomorphism).
+Since $\itoa^C_{i,k}(\beta_i(b)) = \beta_k \circ \iota^B_{i,k} (b)$, we have
+$\iota^B_{i,k} (b) \in \ker \beta_k$. So there exists some $a \in A_k$ such that
+$\alpha_k(a) = \iota^B_{i,k} (b)$, since $\ker(\beta_k) = \im(\alpha_k)$, by
+assumption. Hence 
+\[ \alpha(a,k) = (\alpha \circ \iota^A_k)(a) = (\iota^B_k \circ \alpha_k)(a) 
+= (\iota^B_k \circ \iota^B_{i,k})(b) = \iota^B_i(b) = (b,i). \]
+
+
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+\end{exercise}
+
+
+\end{document}
