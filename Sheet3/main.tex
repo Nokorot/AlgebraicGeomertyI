@@ -2,6 +2,8 @@
 \usepackage{.styles/basic}
 \usepackage{.styles/envs}
 
+\usetikzlibrary{cd}
+
 %%%%%%% Title %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \title{\textbf{Algebraic Geometry} - Exercise Sheet 3}
 \author{Tor Gjone \& Paul}
@@ -65,6 +67,12 @@ We have
 \[ F \circ G: \Sh_{\B}(X) \to \Sh_{\B}(X); \F \mapsto 
 \left(U \mapsto \invlim_{V \subset U, V \in \B} \F(V) \right)  \]
 
+
+\[ \begin{tikzcd}
+\invlim_{W \in U'} \F(W) \arrow[r] \arrow[rd] & \F(V') 
+& \invlim_{W \in U'} \F(W) \arrow[l] \arrow[ld] \\
+& \F(V') &
+\end{tikzcd} \]
 
 
 \end{exercise}
