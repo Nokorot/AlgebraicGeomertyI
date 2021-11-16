@@ -1,0 +1,208 @@
+\documentclass[a5paper,11pt,english]{article}
+\usepackage{.styles/basic}
+\usepackage{.styles/envs}
+
+%%%%%%% Title %%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{\textbf{Algebraic Geometry} - Exercise Sheet 5}
+\author{Tor Gjone \& Paul}
+
+%%%%%%% Definitions %%%%%%%%%%%%%%%%%%%%%
+\input{defs}
+
+\newSimpleHeaderEnvironment{exercise}{Exercise }
+
+\DeclareMathOperator{\Fun}{Fun}
+\DeclareMathOperator{\Spec}{Spec}
+
+\renewcommand{\O}{\mathcal{O}}
+\newcommand{\Cc}{\mathcal{C}}
+\newcommand{\Dd}{\mathcal{D}}
+
+\newsavebox{\pullback}
+\sbox\pullback{%
+\begin{tikzpicture}%
+\draw (0,0) -- (1ex,0ex);%
+\draw (1ex,0ex) -- (1ex,1ex);%
+\end{tikzpicture}}
+
+
+%%%%%%%% Content %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\mmaketitle
+
+
+\begin{exercise}[2]
+\begin{enumerate}
+\item % 1
+We'll denote the map by $\Psi$. 
+\[ \Psi : \Hom(h_X, F) \to F(X); \q \eta \mapsto \eta_X(\Id_X)). \]
+
+Let $\eta \in \Hom(h_X, F)$, ie. a natural transformation from $h_X$ to $F$. 
+Then for $Y,Z \in \Cc$ and $f: Y \to Z$, the following diagram commutes
+\[ \begin{tikzcd}
+\Hom_\Cc(Z,X) \arrow[r,"\eta_Y"] \arrow[d, "h_X f"] & \F(Y) \arrow[d, "F(f)"] \\
+\Hom_\Cc(Y,X) \arrow[r,"\eta_Z"] & F(Y)
+\end{tikzcd} \]
+In particular, the diagram commutes for $f : Y \to X$. So
+\begin{equation}
+\eta_Y(f) = \eta_Y(f\circ \Id_X) = F(f)(\eta_X(\Id_X)). 
+\end{equation}
+So if $\xi \in \Hom(h_X, F)$, such that $\eta_x(\Id_X) = \xi_X(\Id_X)$, ie.
+$\Psi(\eta) = \Psi(\xi)$. Then $\eta_Y(f) = \xi_Y(f)$, for all $f: Y \to X$, so
+$\eta = \xi$. So $\Psi$ is injective. 
+
+Furthermore, if $x\in F(X)$, we may define $\eta^x \in \Hom(\eta_X,F)$, by 
+\[ \eta^x_Y(f) := F(f)(x), \qquad \forall Y \in \Cc, \: f:Y \to X. \]
+Then 
+\[ \Psi(\eta^x) = \eta^x(\Id_X) = F(\Id_X)(x) = \Id_X(x) = x. \] 
+So $\Psi$ is also surjective. It remains to show that $\eta^x$ satisfies the naturally
+conditions (ie. the commutative diagram above). Let $Y,Z \in \Cc$, $g : Y \to
+Z$, and $f: Y \to X$. Then
+\begin{align*}
+(\eta^x_Z \circ h_X g)(f) &= \eta^x_Z (f \circ g)  = F(f \circ g)(x)  =
+F(g)(F(f)(x)) = F(g)(\eta^x_Y(f)).
+\end{align*}
+
+
+Consider the case $F = h_Y$, then the Yoneda lemma implies that  
+\[ \Hom(h_X,h_Y) \cong \Hom(X,Y). \]
+So the functor $\Cc \mapsto \Fun(\C\op, \Sets); X \mapsto h_X$ is fully
+faithful.
+
+\item % 2
+% A morphism $f: X \to Y$ of schemes over $S$ is given by a mo
+The first bijection follows immediately from part 1. So what we need to show is
+the second bijections.
+
+Let $\Xi: \Hom_S(X,Y) \to \Hom({h_X}_{|\Dd},{h_Y}_{|\Dd})$ be the composition of
+the Yoneda map $\Psi$ from part 1, and the restriction sub-category $\Dd$. More
+explicitly $Xi$ is the composition
+\[ \begin{tikzcd}[row sep=.6em]
+\Hom_S(X,Y) \arrow[r]& \Hom(h_X,x_Y) \arrow[r] & \Hom({h_X}_{|\Dd},
+{h_Y}_{|\Dd}) \\
+f \arrow[r, mapsto]& \eta^f \arrow[r, mapsto]& \eta^f_{|\Dd}
+\end{tikzcd} \]
+where $\eta^f$ is defined (like in part 1, with $F = h_Y$) by 
+\[ \eta^f_Z(g) = h_Y(g)(f) = f\circ g, \qquad \forall Z \in \Cc, \quad g:Z \to
+X, \]
+and $\eta^f_{|\Dd}$ is the restriction of a natural transformation to a natural
+transformation between the restriction of the functors.
+
+To show the second bijection we will construct a map $\Phi: \Hom({h_X}_{|\Dd},
+{h_Y}_{|\Dd}) \to \Hom(X,Y)$ inverse to $\Xi$.
+
+Let $\eta \in \Hom({h_X}_{\Dd}, {h_Y}_{\Dd})$ and $X = \bigcup_{i\in I}$ such that
+$X_i$ is an affine scheme. Let 
+\[ \eta_i := \eta_{X_i} : \Hom_S(X_i, X) \to \Hom_S(X_i, Y) \]
+and $\iota_{i,j} : X_i \cap X_j \into X_i$, with $(\iota_{i,j})^\#_x = \id :
+\O_{X_i,x} \to \O_{X_i\cap X_j, x} = \O_{X_i,x}$, for all $x\in X_i \cap X_j$. Then, by the neutrality of $\eta$, 
+the diagram 
+\[ \begin{tikzcd}
+\Hom_S(X_i, X) \arrow[r, "\eta_i"] \arrow[d,"h_X \iota_{i,j}"] &
+\Hom_S(X_i, Y) \arrow[d, "h_Y\iota_{i,j}"] \\
+\Hom_S(X_i\cap X_j, X) \arrow[r, "\eta_{X_i\cap X_j}"] &
+\Hom_S(X_i\cap X_j, Y) 
+\end{tikzcd} \]
+commutes. Equivalently, for all morphisms $f : X_i \to X$, then 
+\begin{equation}
+\eta_i(f) \circ \iota_{i,j} = \eta_{X_i \cap X_j} (f \circ \iota{i,j})
+\qq\tand
+(\iota_i)^\# \circ \eta_i(f^\#) = \eta_{X_i \cap X_j} \left( (\iota_i)^\# \circ
+f^\#  \right)
+\label{eq:2.2}
+\end{equation}
+
+Let $\iota_i : X_i \into X$, be the inclusion, with $(\iota_i)^\#_x = \id : \O_{X,x}
+\to \O_{X_i,x} = \O_{X,x}$. 
+Define $\Psi(\eta): X \to Y$, for all $x \in X$, by
+\[ \Psi(\eta)(x) := \eta_i(\iota_i)(x) \qq\tand \Psi(\eta)_x^\# :=
+\eta_i\left((\iota_i)_x^\#\right), \qquad\tif \quad x \in X_i. \]
+Clearly $\iota_i$ is a morphism of schemes over $S$, so, if well defined,
+$\Psi(\eta)$ is also a morphism of schemes over $S$.
+
+It follows from equation \pref{eq:2.2} that this is well-defined. Suppose $x \in
+X_i \cap X_j$, then
+\[ \eta_i(\iota_i)(x) = (\eta_i(\iota_i) \circ \iota_{i,j})(x) 
+= \eta_{X_i\cap X_j} (\iota_i \circ \iota_{i,j})(x) 
+= \eta_{X_i\cap X_j} (\iota_j \circ \iota_{j,i})(x)
+= \eta_j(\iota_j)(x), \]
+and 
+\begin{align*}
+\eta_i\left((\iota_i)_x^\#\right)
+= (\iota_j)_x^\# \circ \eta_i\left( (\iota_i)_x^\#   \right)
+= \eta_{X_i \cap X_j} \left( (\iota_i)_x^\# \circ (\iota_j)_x^\#  \right)
+= \eta_j\left((\iota_j)_x^\#\right).
+\end{align*}
+The first and third equality follows from $(\iota_j)_x^\# = \id$, and the second
+by equation \pref{eq:2.2}. 
+
+It remains to show that $\Psi$ defines an inverse of $\Xi$. Let $f : X \to Y$ be
+a morphism of schemes over $S$. Then for $x \in X_i$ 
+\begin{align*}
+\Psi(\Xi(f))(x) &= \eta^f_{X_i}(\iota_i)(x) = (f \circ \iota_i)(x) = f(x), \quad
+\tand \\
+\Psi(\Xi(f))_x^\# &= \eta^f_{X_i} ( (\iota_i)_x^\# ) = (\iota_i)_x^\# \circ
+f_x^\# = f_x^\#.
+\end{align*}
+Conversely, let $\eta \in \Hom({h_X}_{|\Dd}, {h_Y}_{|\Dd})$, $g: Z \to X$, where
+$Z$ affine scheme, $z \in Z$ and $i \in I$, such that $g(z) \in X_i$. Then
+\begin{align*}
+\Xi(\Psi(\eta))(g)(z) &= \eta_Z^{\Psi(\eta)} (g)(z) \\
+&= \Psi(\eta) (g(z)) \\
+&= \eta_i(\iota_i)(g(z))
+\end{align*}
+% \todo{Argue $\eta_i(\iota_i)(g(z)) = \eta_Z(g)(z)$.}
+\end{enumerate}
+
+
+\end{exercise}
+
+\newpage
+\begin{exercise}[3]
+We have a pull-back diagram, for each of the two fibre-products.
+
+\renewcommand{\|}{\hspace{-.25em}\mid\hspace{-.25em}}
+
+\[ \begin{tikzcd}
+X\times_S Y \arrow[r,"p_X"] \arrow[d, "p_Y"] 
+\arrow[dr, phantom, "\usebox\pullback" , very near start, color=black]
+& X \arrow[d, "f"] \\
+Y \arrow[r, "g"] & S
+\end{tikzcd}
+\qquad
+\begin{tikzcd}
+\|X\| \times_{|S|} \|Y\| \arrow[r,"q_X"] \arrow[d, "q_Y"] 
+\arrow[dr, phantom, "\usebox\pullback" , very near start, color=black]
+& \|X\| \arrow[d, "|f|"] \\
+\|Y\| \arrow[r,"|g|"] & \|S\|
+\end{tikzcd} \]
+
+By the first diagram $|p_X|: |X\times_S Y| \to |X|$ and $|p_Y|: |X\times_S Y|
+\to |Y|$, such that $|f|\circ |p_X| = |g|\circ |p_Y|$. So by the universal prop
+of the second there is a unique map $\pi : |X \times_S Y| \to |X|\times_{|S|}
+|Y|$. 
+
+To show that $\pi$ is surjective. Consider $x \in X$, $y\in Y$, $T = \Spec(k)$,
+for some filed $k$ and define 
+\[ \xi_x : T \to X; \star \to x, \qq\tand 
+\zeta_y : T \to Y; \star \to y, \]
+with $\xi_x^\# = 0: \O_{X,x} \to k$ and $\zeta_y^\# = 0 : \O_{Y,y} \to k$.
+
+Then if $f(x)=g(y)$, $(T,\xi_x, \zeta_y)$, defines a cone over the first
+pull-back diagram
+and $(|T|,|\xi_x|, |\zeta_y|)$ defines a cone over the second pull-back diagram.
+Let $\phi_{x,y}$ and $\psi_{x,y}$ denote the unique maps determined by the
+universal properties of the first and second pull-backs, respectively. 
+By the uniqueness of $\psi_{x,y}$, $\psi_{x,y} = \phi_{x,y} \circ \pi$ and
+$\psi_{x,y}(\star) = [(x,y)] \in |X|\times_{|S|} |Y|$, so $[(x,y)] \in \im\pi$.
+Since $x,y$ was arbitrary, such that $f(x)=g(y)$, $\pi$ is surjective.
+
+
+% The fibre over $[(x,y)]$ is dete
+
+\end{exercise}
+
+
+
+
+\end{document}
