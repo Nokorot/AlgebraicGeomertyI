@@ -1,0 +1,120 @@
+\documentclass[a5paper,11pt,english]{article}
+\usepackage{.styles/basic}
+\usepackage{.styles/envs}
+
+%%%%%%% Title %%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{\textbf{Algebraic Geometry} - Exercise Sheet 8}
+\author{Tor Gjone \& Paul}
+
+%%%%%%% Definitions %%%%%%%%%%%%%%%%%%%%%
+\input{defs}
+
+\newSimpleHeaderEnvironment{exercise}{Exercise }
+
+\DeclareMathOperator{\Fun}{Fun}
+\DeclareMathOperator{\Spec}{Spec}
+
+\DeclareMathOperator{\coker}{coker}
+
+\renewcommand{\O}{\mathcal{O}}
+\DeclareMathOperator{\QCoh}{QCoh}
+
+
+\renewcommand{\E}{\mathcal{E}}
+\renewcommand{\F}{\mathcal{F}}
+
+\newcommand{\M}{\mathcal{M}}
+\renewcommand{\N}{\mathcal{N}}
+
+%%%%%%%% Content %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\mmaketitle
+
+
+\begin{exercise}[1]
+\begin{enumerate}
+\item
+By definition $\QCoh(X)$ is a full subcategory of $\O_X$-Mod, since a morphism
+in $\QCoh(X)$ is simply a morphism of $\O_X$-modules. So (assuming $\O_X$ is
+abilian) we only need to check that the kernels and cokernels of morphisms of
+quasi-coherent $\O_X$-modules are in $\QCoh(X)$.
+
+Let $f : \M \to \N$, be a morphism of quasi-coherent $\O_X$-modules. 
+Suppose $X = \Spec A$. Then, by Corollary 11.7 in the notes, 
+$\ker f = \til{\ker (f(X))}$ and $\coker \til{\coker (f(X))}$, and are
+thus quasi-coherent.
+
+Now let $(U_i)_{i\in I}$ be a cover of $X$ by affines, such that $\M_{|U_i}
+\cong \til {M_I}$ and $\N_{|U_i} \cong \til{N_i}$, for $\O_X(U_i)$-modules
+$M_i$ and $N_i$.
+
+Then, by the above argument, $\ker f_{|U_i} \cong \til{\ker f(U_i)}$, so $\ker
+f$ is quasi-coherent. Similarly, $\coker f_{|U_i} \cong \til{\coker
+f(U_i)}$, so also $\coker f$ is quasi-compact.
+
+
+To show that $\QCoh(X)$ is closed under extensions, let 
+\[ 0 \to \M \xto{f} \E \xto{g} \N \to 0 \]
+be an exact sequence in $\O_X$-Mod, with $\M,\N \in \QCoh(X)$.
+
+First suppose $X = \Spec A$, then again, by corollary 11.7,  
+\[ 0 \to M \xto{f(X)} \E(X) \xto{g(X)} N \to 0 \]
+is exact, with $N,M$ $A$-modules. As $\E$ is an $\O_X$-module, $\E(X)$ is also
+an $A$-module. Applying the tildification again we get, by cor 11.7, that 
+\[ 0 \to \til M \xto{\til{f(X)}} \til{\E(X)} \xto{\til{g(X)}} \til N \to 0 \]
+is exact. Since $\M \cong \til M$, $\N \cong \til N$, $f = \til{f(X)}$ and $g =
+\til{g(X)}$, we get that also $\E = \til {\E(X)}$.
+
+
+If $(U_i)_{i\in I}$ is a cover of $X$, by affines such that $\M_{|U_i} \cong
+\til {M_i}$ and $\N_{|U_i} \cong \til {N_i}$. Then, since exactness is a local
+property (we could consider stalks),
+\[ 0 \to \M_{|U_i} \xto{f_{|U_i}} \E_{|U_i} \xto{g_{|U_i}} \N_{|U_i} \to 0 \]
+is also exact, and thus by the argument above $\E_{|U_i} \cong \til {\E(U_i)}$.
+
+
+Finally it is immediate from the fact that the functor is inclusion and that it is
+fully frightful, that it is exact.
+
+\item
+Since the kernel and cokernel of morphisms between finally generated modules are
+also f.g., it is clear that the statement about abelian also hold for coherent
+$\O_X$-modules. Similarly the category of f.g. modules is closed under
+extensions, so also this statement holds for coherent $\O_X$-modules. 
+
+%The exactness is also clear 
+\end{enumerate}
+\end{exercise}
+
+\newpage
+
+% \begin{exercise}[2]
+% \begin{enumerate}
+% \item
+% Let $\gamma : \E \to \F$ be an isomorphism of vector bundles. 
+% Let $\alpha' : \O^n_{U_0} \to \F_{|U_0}$ and $\beta' : \O^n_{U_1} \to
+% \F_{|U_1}$. We have the diagram
+% 
+% \[ \begin{tikzcd}
+% \O^n_{U_0\cap U_1} \arrow[r, "\alpha_|" anchor=south] \arrow[dr, "\alpha'_|"  anchor=north
+% east] &
+% \E_| \arrow[d, "\gamma_|"] &
+% \O^n_{U_0 \cap U_1} \arrow[l, "\beta_|" anchor=south] \arrow[dl,"\beta'_|"] \\
+% & \F_|
+% \end{tikzcd} \]
+% where $\cdot_| := \cdot_{|U_0\cap U_1}$. 
+% The diagram does not commutes in general, but the left tirangle
+% comumutes up to 
+% 
+% 
+% 
+% 
+% 
+% 
+% \end{enumerate}
+% \end{exercise}
+
+
+
+
+\end{document}
